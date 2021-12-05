@@ -16,6 +16,11 @@ class BoardEntry:
     def __bool__(self) -> bool:
         return self.drawn
 
+    def __str__(self) -> str:
+        if self:
+            return "({: >2d})".format(self.num)
+        return "{: >3d} ".format(self.num)
+
 
 class Board:
     n = 5
@@ -44,6 +49,9 @@ class Board:
 
     def score(self, num: int) -> int:
         return num * sum(entry.num for entry in self._board.values() if not entry)
+
+    def __str__(self) -> str:
+        return "\n".join(" ".join(str(self._board[(i, j)]) for j in range(self.n)) for i in range(self.n))
 
 
 InputType = tuple[list[int], list[Board]]
