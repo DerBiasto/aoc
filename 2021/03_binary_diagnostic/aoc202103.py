@@ -2,13 +2,14 @@
 
 from aocd import get_data
 
-InputType = list[int]
+InputType = tuple[int, list[int]]
 OutputType = int
 
 
 def parse(puzzle_input: str) -> InputType:
     """Parse file input."""
-    return [int(line, base=2) for line in puzzle_input.split("\n")]
+    lines = puzzle_input.split("\n")
+    return len(lines[0]), [int(line, base=2) for line in lines]
 
 
 def part1(data: InputType) -> OutputType:

@@ -30,7 +30,7 @@ def puzzle_input() -> aoc202103.InputType:
 
 def test_parse_example1(example1) -> None:
     """Test that input is parsed properly."""
-    assert example1 == [
+    assert example1 == (5, [
         0b00100,
         0b11110,
         0b10110,
@@ -43,7 +43,11 @@ def test_parse_example1(example1) -> None:
         0b11001,
         0b00010,
         0b01010,
-    ]
+    ])
+
+
+def test_part_puzzle_input(puzzle_input) -> None:
+    assert puzzle_input[0] == 12
 
 
 @pytest.mark.skip(reason="Not implemented")
