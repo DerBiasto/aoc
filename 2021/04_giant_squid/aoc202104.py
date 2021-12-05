@@ -62,6 +62,11 @@ def parse(puzzle_input: str) -> InputType:
 
 def part1(data: InputType) -> OutputType:
     """Solve part 1."""
+    for num in data[0]:
+        for b in data[1]:
+            b.draw_number(num)
+            if b.is_won():
+                return b.score(num)
 
 
 def part2(data: InputType) -> OutputType:
