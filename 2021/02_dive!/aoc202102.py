@@ -17,6 +17,15 @@ def parse(puzzle_input: str) -> InputType:
 
 def part1(data: InputType) -> OutputType:
     """Solve part 1."""
+    x = y = 0
+    for command, value in data:
+        if command == "forward":
+            x += value
+        elif command == "down":
+            y += value
+        elif command == "up":
+            y -= value
+    return x * y
 
 
 def part2(data: InputType) -> OutputType:
