@@ -8,7 +8,7 @@ OutputType = int
 
 def parse(puzzle_input: str) -> InputType:
     """Parse file input."""
-    return puzzle_input.split("\n")
+    return [int(line, base=2) for line in puzzle_input.split("\n")]
 
 
 def part1(data: InputType) -> OutputType:
