@@ -30,6 +30,16 @@ def part1(data: InputType) -> OutputType:
 
 def part2(data: InputType) -> OutputType:
     """Solve part 2."""
+    pos = depth = aim = 0
+    for command, value in data:
+        if command == "forward":
+            pos += value
+            depth += aim * value
+        elif command == "down":
+            aim += value
+        elif command == "up":
+            aim -= value
+    return pos * depth
 
 
 def solve(data: InputType) -> list[str]:

@@ -50,19 +50,11 @@ def test_part1_example1(example1) -> None:
     assert aoc202102.part1(example1) == 150
 
 
-@pytest.mark.skip(reason="Not implemented")
 def test_part2_example1(example1):
     """Test part 2 on example input"""
-    assert aoc202102.part2(example1) == ...
+    assert aoc202102.part2(example1) == 900
 
 
-@pytest.mark.skip(reason="Not implemented")
-def test_part2_example2(example2):
-    """Test part 2 on example input"""
-    assert aoc202102.part2(example2) == ...
-
-
-@pytest.mark.skip(reason="Not implemented")
 def test_part2_puzzle_input(puzzle_input):
     """Test part 2 on example input."""
-    assert aoc202102.part2(puzzle_input) == ...
+    assert aoc202102.part2(puzzle_input) == 1848454425
