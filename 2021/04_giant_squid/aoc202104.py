@@ -22,9 +22,10 @@ class Board:
 
     def __init__(self, board_input: str):
         self._board = {
-            (i, j): Board(num)
+            (i, j): BoardEntry(num)
             for i, line in enumerate(board_input.split("\n"))
-            for j, num in enumerate(line.split(" "))
+            # Provide no argument to second split to correctly handle douple spaces.
+            for j, num in enumerate(line.split())
         }
         assert len(self._board) == self.n ** 2
 
@@ -45,7 +46,7 @@ class Board:
         return num * sum(entry.num for entry in self._board if not entry)
 
 
-InputType = list[int]
+InputType = tuple[list[int], list[Board]]
 OutputType = int
 
 
@@ -53,9 +54,10 @@ def parse(puzzle_input: str) -> InputType:
     """Parse file input."""
     chunks = puzzle_input.split("\n\n")
 
-    draw_order = chunks[0].split(",")
-
+    draw_order = list(map(int, chunks[0].split(",")))
     boards = [Board(board_input) for board_input in chunks[1:]]
+
+    return draw_order, boards
 
 
 def part1(data: InputType) -> OutputType:
