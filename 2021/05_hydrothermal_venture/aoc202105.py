@@ -1,5 +1,6 @@
 """AoC 5, 2021: Hydrothermal Venture"""
 
+from collections import Counter
 from typing import NamedTuple
 
 from aocd import get_data
@@ -13,15 +14,17 @@ class Line:
         self.start = Pos(*map(int, start_input.split(",", 1)))
         self.end = Pos(*map(int, end_input.split(",", 1)))
 
-    def get_fields(self) -> list[Pos]:
+    def get_fields(self, diagonal: bool) -> list[Pos]:
+        x_step = 1 if self.start.x <= self.end.x else -1
+        y_step = 1 if self.start.y <= self.end.y else -1
         if self.start.x == self.end.x:
-            y_min = min(self.start.y, self.end.y)
-            y_max = max(self.start.y, self.end.y)
-            return [Pos(self.start.x, y) for y in range(y_min, y_max + 1)]
+            return [Pos(self.start.x, y) for y in range(self.start.y, self.end.y + y_step, y_step)]
         if self.start.y == self.end.y:
-            x_min = min(self.start.x, self.end.x)
-            x_max = max(self.start.x, self.end.x)
-            return [Pos(x, self.start.y) for x in range(x_min, x_max + 1)]
+            return [Pos(x, self.start.y) for x in range(self.start.x, self.end.x + x_step, x_step)]
+        if diagonal:
+            return [Pos(x, y) for x, y in zip(range(self.start.x, self.end.x + x_step, x_step),
+                                              range(self.start.y, self.end.y + y_step, y_step))]
+        return []
 
 
 InputType = list[Line]
@@ -38,10 +41,20 @@ def parse(puzzle_input: str) -> InputType:
 
 def part1(data: InputType) -> OutputType:
     """Solve part 1."""
+    grid = Counter()
+    for line in data:
+        grid.update(line.get_fields(diagonal=False))
+
+    return sum(1 for v in grid.values() if v >= 2)
 
 
 def part2(data: InputType) -> OutputType:
     """Solve part 2."""
+    grid = Counter()
+    for line in data:
+        grid.update(line.get_fields(diagonal=True))
+
+    return sum(1 for v in grid.values() if v >= 2)
 
 
 def solve(data: InputType) -> list[str]:
