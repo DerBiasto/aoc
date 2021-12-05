@@ -13,6 +13,11 @@ def parse(puzzle_input: str) -> InputType:
 
 def part1(data: InputType) -> OutputType:
     """Solve part 1."""
+    values = set(data)
+    for val in data:
+        num = 2020 - val
+        if num in values:
+            return num * val
 
 
 def part2(data: InputType) -> OutputType:
