@@ -1,3 +1,4 @@
 */.idea
 */.pytest_cache
 template-aoc-python
+download_input.py
