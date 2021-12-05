@@ -1,4 +1,5 @@
 """AoC 2, 2020: Password Philosophy"""
+from collections import Counter
 
 from aocd import get_data
 
@@ -17,10 +18,20 @@ def parse(puzzle_input: str) -> InputType:
 
 def part1(data: InputType) -> OutputType:
     """Solve part 1."""
+    ret = 0
+    for min_, max_, letter, password in data:
+        c = Counter(password)
+        if min_ <= c[letter] <= max_:
+            ret += 1
+    return ret
 
 
 def part2(data: InputType) -> OutputType:
     """Solve part 2."""
+    return len([
+        password for pos1, pos2, letter, password in data
+        if (password[pos1 - 1] == letter) != (password[pos2 - 1] == letter)
+    ])
 
 
 def solve(data: InputType) -> list[str]:
