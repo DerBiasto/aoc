@@ -28,6 +28,27 @@ def part1(data: InputType) -> OutputType:
 def part2(data: InputType) -> OutputType:
     """Solve part 2."""
 
+    def get_life_support_rating(data: InputType, majority: bool) -> int:
+        lifesupport_data = data[1]
+        for i in reversed(range(data[0])):
+            a, b = [], []
+            if len(lifesupport_data) == 1:
+                break
+            for num in lifesupport_data:
+                if (num >> i) & 1:
+                    a.append(num)
+                else:
+                    b.append(num)
+                if (len(a) >= len(b)) != majority:
+                    lifesupport_data = a
+                else:
+                    lifesupport_data = b
+        return lifesupport_data[0]
+
+    o2 = get_life_support_rating(data, majority=True)
+    co2 = get_life_support_rating(data, majority=False)
+    return o2 * co2
+
 
 def solve(data: InputType) -> list[str]:
     """Solve the puzzle for the given input."""
