@@ -8,7 +8,11 @@ OutputType = int
 
 def parse(puzzle_input: str) -> InputType:
     """Parse file input."""
-    return puzzle_input.split("\n")
+    ret = []
+    for passport in puzzle_input.split("\n\n"):
+        kv_pairs = passport.split()
+        ret.append(dict([kv.split(":") for kv in kv_pairs]))
+    return ret
 
 
 def part1(data: InputType) -> OutputType:
