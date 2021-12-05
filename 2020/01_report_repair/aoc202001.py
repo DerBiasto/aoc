@@ -1,4 +1,5 @@
 """AoC 1, 2020: Report Repair"""
+import itertools
 
 from aocd import get_data
 
@@ -22,6 +23,11 @@ def part1(data: InputType) -> OutputType:
 
 def part2(data: InputType) -> OutputType:
     """Solve part 2."""
+    values = set(data)
+    for (val1, val2) in itertools.combinations(data, 2):
+        num = 2020 - val1 - val2
+        if num in values:
+            return num * val1 * val2
 
 
 def solve(data: InputType) -> list[str]:
