@@ -37,10 +37,9 @@ def test_parse_example1(example1) -> None:
         assert isinstance(b, aoc202104.Board)
 
 
-@pytest.mark.skip(reason="Not implemented")
 def test_part1_puzzle_input(puzzle_input):
     """Test part 1 on full input."""
-    assert aoc202104.part1(puzzle_input) == ...
+    assert aoc202104.part1(puzzle_input) == 55770
 
 
 def test_part1_example1(example1) -> None:
