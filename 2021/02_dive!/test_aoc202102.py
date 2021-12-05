@@ -28,16 +28,15 @@ def puzzle_input() -> aoc202102.InputType:
     return aoc202102.parse(puzzle_input)
 
 
-@pytest.mark.skip(reason="Not implemented")
 def test_parse_example1(example1) -> None:
     """Test that input is parsed properly."""
     assert example1 == [
-        "forward 5",
-        "down 5",
-        "forward 8",
-        "up 3",
-        "down 8",
-        "forward 2",
+        ("forward", 5),
+        ("down", 5),
+        ("forward", 8),
+        ("up", 3),
+        ("down", 8),
+        ("forward", 2),
     ]
 
 
