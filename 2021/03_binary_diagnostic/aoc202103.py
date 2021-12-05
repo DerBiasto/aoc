@@ -14,6 +14,17 @@ def parse(puzzle_input: str) -> InputType:
 
 def part1(data: InputType) -> OutputType:
     """Solve part 1."""
+    gamma = epsilon = 0
+    half_n = len(data[1]) // 2
+    for i in range(data[0]):
+        count = sum((num >> i) & 1 for num in data[1])
+        if count >= half_n:
+            gamma += 2 ** i
+        else:
+            epsilon += 2 ** i
+        if not count:
+            break
+    return gamma * epsilon
 
 
 def part2(data: InputType) -> OutputType:
