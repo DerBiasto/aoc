@@ -43,7 +43,7 @@ class Board:
         )
 
     def score(self, num: int) -> int:
-        return num * sum(entry.num for entry in self._board if not entry)
+        return num * sum(entry.num for entry in self._board.values() if not entry)
 
 
 InputType = tuple[list[int], list[Board]]
