@@ -30,7 +30,13 @@ def puzzle_input() -> aoc202105.InputType:
 
 def test_parse_example1(example1) -> None:
     """Test that input is parsed properly."""
-    assert example1 == [
+    for line in example1:
+        assert isinstance(line, aoc202105.Line)
+    temp = [
+        ((line.start.x, line.start.y), (line.end.x, line.end.y))
+        for line in example1
+    ]
+    assert temp == [
         ((0, 9), (5, 9)),
         ((8, 0), (0, 8)),
         ((9, 4), (3, 4)),
