@@ -22,7 +22,7 @@ class Board:
 
     def __init__(self, board_input: str):
         self._board = {
-            (i, j): BoardEntry(num)
+            (i, j): BoardEntry(int(num))
             for i, line in enumerate(board_input.split("\n"))
             # Provide no argument to second split to correctly handle douple spaces.
             for j, num in enumerate(line.split())
