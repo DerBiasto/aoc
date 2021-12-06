@@ -16,10 +16,35 @@ def parse(puzzle_input: str) -> InputType:
 
 def part1(data: InputType) -> OutputType:
     """Solve part 1."""
+    if len(data) <= 25:
+        n = 5
+    else:
+        n = 25
+    preambel = set(data[:n])
+    for i, num in enumerate(data[n:]):
+        for x in preambel:
+            if num - x in preambel:
+                break
+        else:
+            return num
+        preambel.remove(data[i])
+        preambel.add(num)
 
 
 def part2(data: InputType) -> OutputType:
     """Solve part 2."""
+    target = part1(data)
+    start = end = current = 0
+    while True:
+        if current < target:
+            current += data[end]
+            end += 1
+        elif current > target:
+            current -= data[start]
+            start += 1
+        else:
+            seq = sorted(data[start:end])
+            return seq[0] + seq[-1]
 
 
 def solve(data: InputType) -> list[str]:
