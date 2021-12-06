@@ -39,12 +39,20 @@ def part1(data: InputType) -> OutputType:
             continue
         ret.add(color)
         q.extend(inverted_data.get(color, {}).keys())
-    print(ret)
     return len(ret)
+
+
+def get_num_bags(color: str, data) -> int:
+    ret = 0
+    for color_, num in data[color].items():
+        inside = get_num_bags(color_, data)
+        ret += num + num * inside
+    return ret
 
 
 def part2(data: InputType) -> OutputType:
     """Solve part 2."""
+    return get_num_bags("shiny gold", data)
 
 
 def solve(data: InputType) -> list[str]:
