@@ -1,25 +1,58 @@
 """AoC 14, 2020: Docking Data"""
+from collections import defaultdict
 
-from aocd import get_data
 import parse as p
+from aocd import get_data
 
-InputType = list[int]
+InputType = list[tuple[int, str]]
 OutputType = int
 
 
 def parse(puzzle_input: str) -> InputType:
     """Parse file input."""
-    lines = puzzle_input.split("\n")
-    mask = p.parse("mask = {}", lines[0]).fixed[0]
-    return (mask, [tuple(map(int, p.parse("mem[{}] = {}", line))) for line in lines[1:]])
+    ret = []
+    for line in puzzle_input.split("\n"):
+        if result := p.parse("mask = {}", line):
+            ret.append((-1, result.fixed[0]))
+        else:
+            ret.append(tuple(map(int, p.parse("mem[{}] = {}", line))))
+    return ret
 
 
 def part1(data: InputType) -> OutputType:
     """Solve part 1."""
+    mask_and = mask_or = None
+    mem = defaultdict(int)
+    for pos, val in data:
+        if pos < 0:
+            mask_and = int("".join("0" if c == "0" else "1" for c in val), base=2)
+            mask_or = int("".join("1" if c == "1" else "0" for c in val), base=2)
+        else:
+            mem[pos] = val & mask_and | mask_or
+    return sum(mem.values())
 
 
 def part2(data: InputType) -> OutputType:
     """Solve part 2."""
+    mask = ""
+    mem = defaultdict(int)
+    for pos, val in data:
+        if pos < 0:
+            mask = val
+        else:
+            p = list("{:0>36b}".format(pos))
+            for i, x in enumerate(mask):
+                if x == "0":
+                    continue
+                p[i] = x
+            q = ["".join(p)]
+            for x in q:
+                if (i := x.find("X")) >= 0:
+                    q.append(x[:i] + "0" + x[i + 1:])
+                    q.append(x[:i] + "1" + x[i + 1:])
+                else:
+                    mem[x] = val
+    return sum(mem.values())
 
 
 def solve(data: InputType) -> list[str]:
