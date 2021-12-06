@@ -11,12 +11,27 @@ def parse(puzzle_input: str) -> InputType:
     return list(map(int, puzzle_input.split(",")))
 
 
+def speak(data: InputType, num: int) -> OutputType:
+    age = dict((n, i) for i, n in enumerate(data[:-1]))
+    prev = data[-1]
+    for i in range(len(data), num):
+        a = age.get(prev)
+        age[prev] = i - 1
+        if a is None:
+            prev = 0
+        else:
+            prev = i - 1 - a
+    return prev
+
+
 def part1(data: InputType) -> OutputType:
     """Solve part 1."""
+    return speak(data, 2020)
 
 
 def part2(data: InputType) -> OutputType:
     """Solve part 2."""
+    return speak(data, 30000000)
 
 
 def solve(data: InputType) -> list[str]:
