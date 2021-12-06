@@ -2,13 +2,27 @@
 
 from aocd import get_data
 
-InputType = list[int]
+InputType = dict[str, dict[str, int]]
 OutputType = int
 
 
 def parse(puzzle_input: str) -> InputType:
     """Parse file input."""
-    return puzzle_input.split("\n")
+    ret = {}
+    for line in puzzle_input.split("\n"):
+        outer_bag, inner_bags = line.split(" contain ", 1)
+        outer_bag: str
+        outer_bag = outer_bag.removesuffix("bags").strip()
+        ret[outer_bag] = {}
+        if inner_bags == "no other bags.":
+            continue
+        # Cut off "." from the end, split at ",".
+        for inner_bag in inner_bags[:-1].split(","):
+            inner_bag: str
+            num, color = inner_bag.removesuffix("bag").removesuffix("bags").strip().split(" ", 1)
+            ret[outer_bag][color] = int(num)
+
+    return ret
 
 
 def part1(data: InputType) -> OutputType:
