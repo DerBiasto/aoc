@@ -1,6 +1,7 @@
 """AoC 14, 2020: Docking Data"""
 
 from aocd import get_data
+import parse as p
 
 InputType = list[int]
 OutputType = int
@@ -8,7 +9,9 @@ OutputType = int
 
 def parse(puzzle_input: str) -> InputType:
     """Parse file input."""
-    return puzzle_input.split("\n")
+    lines = puzzle_input.split("\n")
+    mask = p.parse("mask = {}", lines[0]).fixed[0]
+    return (mask, [tuple(map(int, p.parse("mem[{}] = {}", line))) for line in lines[1:]])
 
 
 def part1(data: InputType) -> OutputType:
