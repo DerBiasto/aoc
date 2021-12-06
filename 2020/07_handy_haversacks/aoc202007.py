@@ -27,6 +27,20 @@ def parse(puzzle_input: str) -> InputType:
 
 def part1(data: InputType) -> OutputType:
     """Solve part 1."""
+    inverted_data = {}
+    for outer, v in data.items():
+        for inner, count in v.items():
+            inverted_data.setdefault(inner, {})[outer] = count
+
+    ret = set()
+    q = list(inverted_data["shiny gold"].keys())
+    for color in q:
+        if color in ret:
+            continue
+        ret.add(color)
+        q.extend(inverted_data.get(color, {}).keys())
+    print(ret)
+    return len(ret)
 
 
 def part2(data: InputType) -> OutputType:
