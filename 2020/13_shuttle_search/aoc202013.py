@@ -1,4 +1,5 @@
 """AoC 13, 2020: Shuttle Search"""
+import math
 
 from aocd import get_data
 
@@ -14,10 +15,22 @@ def parse(puzzle_input: str) -> InputType:
 
 def part1(data: InputType) -> OutputType:
     """Solve part 1."""
+    x = data[0]
+    wait_times = [(bus - (x % bus), bus) for bus in data[1] if bus]
+    min_bus = min(wait_times)
+    return min_bus[0] * min_bus[1]
 
 
 def part2(data: InputType) -> OutputType:
     """Solve part 2."""
+    remainders = dict((b, (b - i) % b) for i, b in enumerate(data[1]) if b)
+    rem_list = list(remainders.items())
+    prev, x = rem_list[0]
+    for val, rem in rem_list[1:]:
+        while x % val != rem:
+            x += prev
+        prev *= val
+    return x
 
 
 def solve(data: InputType) -> list[str]:
