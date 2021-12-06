@@ -60,18 +60,21 @@ def test_part1_example1(example1: aoc202103.InputType) -> None:
     assert aoc202103.part1(example1) == 198
 
 
+def test_part1_example2(example2: aoc202103.InputType) -> None:
+    """Test part 1 on example input"""
+    assert aoc202103.part1(example2) == 386463119445733053722557199393548794069517420395751036911156
+
+
 def test_part2_example1(example1: aoc202103.InputType) -> None:
     """Test part 2 on example input"""
     assert aoc202103.part2(example1) == 230
 
 
-@pytest.mark.skip(reason="Not implemented")
 def test_part2_example2(example2: aoc202103.InputType) -> None:
     """Test part 2 on example input"""
-    assert aoc202103.part2(example2) == ...
+    assert aoc202103.part2(example2) == 356913958942791247617705918285570893096041618195840162127310
 
 
-@pytest.mark.skip(reason="Not implemented")
 def test_part2_puzzle_input(puzzle_input: aoc202103.InputType) -> None:
     """Test part 2 on example input."""
-    assert aoc202103.part2(puzzle_input) == ...
+    assert aoc202103.part2(puzzle_input) == 1662846

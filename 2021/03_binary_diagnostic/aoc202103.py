@@ -17,10 +17,16 @@ def part1(data: InputType) -> OutputType:
     gamma = epsilon = 0
     half_n = len(data[1]) // 2
     for i in reversed(range(data[0])):
-        count = sum((num >> i) & 1 for num in data[1])
-        if count >= half_n:
+        count0 = count1 = 0
+        mask = 1 << i
+        for num in data[1]:
+            if num & mask:
+                count1 += 1
+            else:
+                count0 += 1
+        if count1 >= half_n:
             gamma += 2 ** i
-        else:
+        elif count0 > half_n:
             epsilon += 2 ** i
     return gamma * epsilon
 
