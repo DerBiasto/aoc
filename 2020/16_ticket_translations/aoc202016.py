@@ -1,9 +1,8 @@
 """AoC 16, 2020: Ticket Translations"""
-
 from aocd import get_data
 import parse as p
 
-InputType = list[int]
+InputType = tuple[dict[str, tuple[int, int, int, int]], tuple[int, ...], list[tuple[int, ...]]]
 OutputType = int
 
 
@@ -23,10 +22,47 @@ def parse(puzzle_input: str) -> InputType:
 
 def part1(data: InputType) -> OutputType:
     """Solve part 1."""
+    ret = 0
+    for ticket in data[2]:
+        for num in ticket:
+            if not any(
+                    a <= num <= b or c <= num <= d
+                    for rule, (a, b, c, d) in data[0].items()
+            ):
+                ret += num
+    return ret
 
 
 def part2(data: InputType) -> OutputType:
     """Solve part 2."""
+    valid = []
+    for ticket in data[2]:
+        if all(
+                any(
+                    a <= num <= b or c <= num <= d
+                    for rule, (a, b, c, d) in data[0].items())
+                for num in ticket
+        ):
+            valid.append(ticket)
+    possible_positions = {
+        name: {i for i in range(len(valid[0])) if all(a <= v[i] <= b or c <= v[i] <= d for v in valid)}
+        for name, (a, b, c, d) in data[0].items()
+    }
+    print(possible_positions)
+
+    ret = 1
+    used = set()
+    for name, possible in sorted(possible_positions.items(), key=lambda item: len(item[1])):
+        name: str
+        possible: set[int]
+        i = (possible - used).pop()
+        used.add(i)
+        possible.clear()
+        possible.add(i)
+        if name.startswith("departure") or len(data[0]) < 6:
+            ret *= data[1][i]
+    print(possible_positions)
+    return ret
 
 
 def solve(data: InputType) -> list[str]:
