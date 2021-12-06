@@ -43,31 +43,21 @@ def test_parse_example1(example1: aoc202008.InputType) -> None:
     ]
 
 
-@pytest.mark.skip(reason="Not implemented")
 def test_part1_example1(example1: aoc202008.InputType) -> None:
     """Test part 1 on example input"""
-    assert aoc202008.part1(example1) == ...
+    assert aoc202008.part1(example1) == 5
 
 
-@pytest.mark.skip(reason="Not implemented")
 def test_part1_puzzle_input(puzzle_input: aoc202008.InputType) -> None:
     """Test part 1 on full input."""
-    assert aoc202008.part1(puzzle_input) == ...
+    assert aoc202008.part1(puzzle_input) == 1766
 
 
-@pytest.mark.skip(reason="Not implemented")
 def test_part2_example1(example1: aoc202008.InputType) -> None:
     """Test part 2 on example input"""
-    assert aoc202008.part2(example1) == ...
+    assert aoc202008.part2(example1) == 8
 
 
-@pytest.mark.skip(reason="Not implemented")
-def test_part2_example2(example2: aoc202008.InputType) -> None:
-    """Test part 2 on example input"""
-    assert aoc202008.part2(example2) == ...
-
-
-@pytest.mark.skip(reason="Not implemented")
 def test_part2_puzzle_input(puzzle_input: aoc202008.InputType) -> None:
     """Test part 2 on example input."""
-    assert aoc202008.part2(puzzle_input) == ...
+    assert aoc202008.part2(puzzle_input) == 1639
