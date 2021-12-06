@@ -14,18 +14,11 @@ def parse(puzzle_input: str) -> InputType:
 
 def model_lanternfish(data: InputType, num_days: int) -> int:
     c = Counter(data)
+    d = [c[i] for i in range(9)]
     for _ in range(num_days):
-        temp = c[0]
-        c[0] = c[1]
-        c[1] = c[2]
-        c[2] = c[3]
-        c[3] = c[4]
-        c[4] = c[5]
-        c[5] = c[6]
-        c[6] = c[7] + temp
-        c[7] = c[8]
-        c[8] = temp
-    return sum(c.values())
+        d.append(d.pop(0))
+        d[6] += d[-1]
+    return sum(d)
 
 
 def part1(data: InputType) -> OutputType:
