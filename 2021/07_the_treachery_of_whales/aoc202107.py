@@ -20,11 +20,10 @@ def part1(data: InputType) -> OutputType:
 
 def part2(data: InputType) -> OutputType:
     """Solve part 2."""
-    data.sort()
-    vals = []
-    for i in range(data[0], data[-1] + 1):
-        vals.append(int(sum(abs(x - i) * (abs(x - i) + 1) for x in data)) // 2)
-    return min(vals)
+    mean = statistics.mean(data)
+    fuel = lambda n: n * (n + 1) // 2
+    return min(sum(fuel(abs(x - int(mean))) for x in data),
+               sum(fuel(abs(x - int(mean + 1))) for x in data))
 
 
 def solve(data: InputType) -> list[str]:
