@@ -31,6 +31,10 @@ def part2(data: InputType) -> OutputType:
     return model_lanternfish(data, 256)
 
 
+def part3(data: InputType) -> OutputType:
+    return model_lanternfish(data, 10 ** 7 - 1)
+
+
 def solve(data: InputType) -> list[str]:
     """Solve the puzzle for the given input."""
     solution1 = part1(data)

@@ -1,6 +1,7 @@
 """Tests for AoC 6, 2021: Lanternfish"""
 
 # Standard library imports
+import math
 import pathlib
 
 # Third party imports
@@ -51,3 +52,7 @@ def test_part2_example1(example1: aoc202106.InputType) -> None:
 def test_part2_puzzle_input(puzzle_input: aoc202106.InputType) -> None:
     """Test part 2 on example input."""
     assert aoc202106.part2(puzzle_input) == 1604361182149
+
+
+def test_part3_example1(example1: aoc202106.InputType) -> None:
+    assert int(math.log10(aoc202106.part3(example1))) + 1 == 378346
