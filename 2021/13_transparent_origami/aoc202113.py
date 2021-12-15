@@ -3,7 +3,7 @@ import copy
 
 from aocd import get_data
 
-InputType = list[int]
+InputType = tuple[set[tuple[int, int]], list[tuple[str, int]]]
 OutputType = int
 
 
@@ -14,44 +14,33 @@ def parse(puzzle_input: str) -> InputType:
     for line in batches[0].split("\n"):
         x, y = tuple(map(int, line.split(",")))
         coords.add((x, y))
-    folds = [line[11] for line in batches[1].split("\n")]
+    folds = [(line[11], int(line[13:])) for line in batches[1].split("\n")]
     return coords, folds
+
+
+def fold(data: InputType) -> set[tuple[int, int]]:
+    coords = data[0]
+
+    for axis, pos in data[1]:
+        if axis == "y":
+            coords = {(x, y) if y < pos else (x, 2 * pos - y) for x, y in coords}
+        else:
+            coords = {(x, y) if x < pos else (2 * pos - x, y) for x, y in coords}
+
+    return coords
 
 
 def part1(data: InputType) -> OutputType:
     """Solve part 1."""
-    coords = data[0]
-    max_x = max(c[0] for c in coords)
-    max_y = max(c[1] for c in coords)
-
-    for axis in data[1][:1]:
-        if axis == "y":
-            half_y = max_y // 2
-            coords = {(x, y) if y < half_y else (x, max_y - y) for x, y in coords}
-            max_y = half_y - 1
-        else:
-            half_x = max_x // 2
-            coords = {(x, y) if x < half_x else (max_x - x, y) for x, y in coords}
-            max_x = half_x - 1
-    return len(coords)
+    return len(fold((data[0], data[1][:1])))
 
 
 def part2(data: InputType) -> str:
     """Solve part 2."""
-    coords = data[0]
+    coords = fold(data)
+
     max_x = max(c[0] for c in coords)
     max_y = max(c[1] for c in coords)
-
-    for axis in data[1]:
-        if axis == "y":
-            half_y = max_y // 2
-            coords = {(x, y) if y < half_y else (x, max_y - y) for x, y in coords}
-            max_y = half_y - 1
-        else:
-            half_x = max_x // 2
-            coords = {(x, y) if x < half_x else (max_x - x, y) for x, y in coords}
-            max_x = half_x - 1
-
     return "\n".join("".join(" " if (x, y) not in coords else "#" for x in range(max_x + 1)) for y in range(max_y + 1))
 
 
