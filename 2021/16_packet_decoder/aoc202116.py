@@ -28,7 +28,6 @@ def decode(data: list[str, int]) -> tuple[str, int]:
     version = int(peek(data, 3), 2)
     data[1] += version
     type_ = int(peek(data, 3), base=2)
-    print(version, type_)
     if type_ == 4:
         t = []
         while True:

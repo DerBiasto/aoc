@@ -67,10 +67,8 @@ def part2(data: InputType) -> OutputType:
     n = 1
     while True:
         if update(data) == 100:
-            print_grid(data)
             return n
         n += 1
-        print_grid(data)
 
 
 def solve(data: InputType) -> list[str]:

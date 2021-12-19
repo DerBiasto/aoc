@@ -67,7 +67,6 @@ def part2(data: InputType) -> OutputType:
                     elif n.name in current_path:
                         continue
                 q.append((n, current_path + "," + n.name, count))
-        print(sorted(all_paths))
     return len(all_paths)
 
 

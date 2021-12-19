@@ -48,7 +48,6 @@ def part2(data: InputType) -> OutputType:
         name: {i for i in range(len(valid[0])) if all(a <= v[i] <= b or c <= v[i] <= d for v in valid)}
         for name, (a, b, c, d) in data[0].items()
     }
-    print(possible_positions)
 
     ret = 1
     used = set()
@@ -61,7 +60,6 @@ def part2(data: InputType) -> OutputType:
         possible.add(i)
         if name.startswith("departure") or len(data[0]) < 6:
             ret *= data[1][i]
-    print(possible_positions)
     return ret
 
 
