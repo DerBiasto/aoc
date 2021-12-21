@@ -56,7 +56,6 @@ def test_part2_example2(example2: aoc202115.InputType) -> None:
     assert aoc202115.part2(example2) == ...
 
 
-@pytest.mark.skip(reason="Not implemented")
 def test_part2_puzzle_input(puzzle_input: aoc202115.InputType) -> None:
     """Test part 2 on example input."""
-    assert aoc202115.part2(puzzle_input) == ...
+    assert aoc202115.part2(puzzle_input) == 2957
