@@ -13,7 +13,7 @@ def parse(puzzle_input: str) -> InputType:
     lines = batches[1].split("\n")
     algo = batches[0]
     return {
-        "algo": algo,
+        "algo": {f"{k:0>9b}": v == "#" for k, v in enumerate(algo)},
         "default": False,
         "data": {
             (x, y): c == "#"
@@ -30,7 +30,7 @@ def parse(puzzle_input: str) -> InputType:
 def get_new_value(x, y, data) -> bool:
     val = "".join("1" if data["data"].get((x + dx, y + dy), data["default"]) else "0"
                   for dy in (-1, 0, 1) for dx in (-1, 0, 1))
-    return data["algo"][int(val, base=2)] == "#"
+    return data["algo"][val]
 
 
 def update(data: InputType) -> None:
@@ -43,7 +43,7 @@ def update(data: InputType) -> None:
         for y in range(data["miny"], data["maxy"])
         for x in range(data["minx"], data["maxx"])
     }
-    data["default"] = get_new_value(1j, 1j, data)
+    data["default"] = data["algo"]["111111111" if data["default"] else "000000000"]
 
 
 def print_grid(data):
@@ -59,7 +59,6 @@ def part1(data: InputType) -> OutputType:
     """Solve part 1."""
     update(data)
     update(data)
-    print_grid(data)
     return len([v for v in data["data"].values() if v])
 
 
@@ -67,7 +66,6 @@ def part2(data: InputType) -> OutputType:
     """Solve part 2."""
     for _ in range(50):
         update(data)
-    print_grid(data)
     return len([v for v in data["data"].values() if v])
 
 

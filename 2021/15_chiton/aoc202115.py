@@ -33,7 +33,7 @@ def find_path(data: InputType) -> OutputType:
         for (a, b) in neighbours(x, y):
             if 0 <= a < maxx and 0 <= b < maxy:
                 new_cost = data[(a, b)]
-                if cost + new_cost < checked.get((a, b), 10 ** 10):
+                if cost + new_cost < checked.get((a, b), 10_000_000_000):
                     checked[(a, b)] = cost + new_cost
                     q.put((checked[(a, b)], (a, b)))
     return checked[(maxx - 1, maxy - 1)]
