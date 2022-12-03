@@ -21,7 +21,7 @@ object_map = {
 def parse_data(puzzle_input: str) -> InputType:
     """Parse file input."""
     return [
-        tuple(object_map[x] for x in line.split())
+        tuple(object_map[x] for x in line.split())  # type: ignore[misc]
         for line in puzzle_input.split("\n")
     ]
 
